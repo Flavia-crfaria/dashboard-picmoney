@@ -488,7 +488,7 @@ if pagina_selecionada == "Visão Geral (CEO)":
             
             fig_evolucao = px.line(df_agg, x=x_axis, y='Usuários Ativos', title=f"Usuários Ativos ({agrupamento})")
             fig_evolucao.update_layout(legend_font_size=12)
-            st.plotly_chart(fig_evolucao, use_container_width=True)
+            st.plotly_chart(fig_evolucao, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
             
     with col_g2:
         with st.container(border=True):
@@ -502,7 +502,9 @@ if pagina_selecionada == "Visão Geral (CEO)":
                              color_discrete_sequence=cores_vibrantes)
             
             fig_pie.update_layout(legend_font_size=14)
-            st.plotly_chart(fig_pie, use_container_width=True)
+            # --- CORREÇÃO DE GRÁFICO (textinfo) ---
+            fig_pie.update_traces(textposition='inside', textinfo='percent', textfont_size=12)
+            st.plotly_chart(fig_pie, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
     
     st.write("---") 
 
@@ -520,7 +522,7 @@ if pagina_selecionada == "Visão Geral (CEO)":
             
             fig_periodo.update_layout(legend_font_size=16)
             
-            st.plotly_chart(fig_periodo, use_container_width=True)
+            st.plotly_chart(fig_periodo, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
             
     with col_g4:
         with st.container(border=True):
@@ -533,8 +535,9 @@ if pagina_selecionada == "Visão Geral (CEO)":
                                    color_discrete_sequence=cores_vibrantes_cupom)
             
             fig_pie_cupom.update_layout(legend_font_size=16)
-            
-            st.plotly_chart(fig_pie_cupom, use_container_width=True)
+            # --- CORREÇÃO DE GRÁFICO (textinfo) ---
+            fig_pie_cupom.update_traces(textposition='inside', textinfo='percent', textfont_size=12)
+            st.plotly_chart(fig_pie_cupom, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
 
     st.write("---") 
 
@@ -550,7 +553,7 @@ if pagina_selecionada == "Visão Geral (CEO)":
         
         fig_hora.update_layout(legend_font_size=16)
         
-        st.plotly_chart(fig_hora, use_container_width=True)
+        st.plotly_chart(fig_hora, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
         
 elif pagina_selecionada == "Financeiro (CFO)":
     st.subheader("Visão Financeira (CFO)")
@@ -591,10 +594,10 @@ elif pagina_selecionada == "Financeiro (CFO)":
     ticket_medio_A = df_periodo_A_massa['valor_compra'].mean() if not df_periodo_A_massa.empty else 0
 
     # Calcular Deltas
-    delta_receita_str = f"{(receita_liquida_B - receita_liquida_A):,.2f}" if receita_liquida_A > 0 else None
-    delta_margem_str = f"{(margem_op_B - margem_op_A):,.1f}%" if margem_op_A > 0 else None
-    delta_ticket_str = f"{(ticket_medio_B - ticket_medio_A):,.2f}" if ticket_medio_A > 0 else None
-    delta_cupons_str = f"{(valor_total_cupons_B - valor_total_cupons_A):,.2f}" if valor_total_cupons_A > 0 else None
+    delta_receita_str = f"{(receita_liquida_B - receita_liquida_A):,.2f}" if receita_liquida_A != 0 else None
+    delta_margem_str = f"{(margem_op_B - margem_op_A):,.1f}%" if margem_op_A != 0 else None
+    delta_ticket_str = f"{(ticket_medio_B - ticket_medio_A):,.2f}" if ticket_medio_A != 0 else None
+    delta_cupons_str = f"{(valor_total_cupons_B - valor_total_cupons_A):,.2f}" if valor_total_cupons_A != 0 else None
     
     # KPI Cards (Com estilo de 'card')
     col_kpi1, col_kpi2, col_kpi3, col_kpi4 = st.columns(4)
@@ -636,7 +639,7 @@ elif pagina_selecionada == "Financeiro (CFO)":
             
             fig_bar_receita.update_layout(legend_font_size=16)
             
-            st.plotly_chart(fig_bar_receita, use_container_width=True)
+            st.plotly_chart(fig_bar_receita, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
     
     with col_g_cfo2:
         # --- (MANTIDO) Gráfico de Barras Colorido ---
@@ -650,7 +653,7 @@ elif pagina_selecionada == "Financeiro (CFO)":
             
             fig_bar_cupom.update_layout(legend_font_size=16)
             
-            st.plotly_chart(fig_bar_cupom, use_container_width=True)
+            st.plotly_chart(fig_bar_cupom, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
 
 # --- 8. PÁGINA DE ALERTAS (COM TEMA) ---
 elif pagina_selecionada == "Alertas":
