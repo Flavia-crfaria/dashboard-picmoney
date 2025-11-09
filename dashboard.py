@@ -715,4 +715,4 @@ elif pagina_selecionada == "Alertas":
                 icon="⚠️"
             )
         else:
-            st.success("Performance de receita dentro do esperado.", icon="✅")git add .
+            st.success("Performance de receita dentro do esperado.", icon="✅")
