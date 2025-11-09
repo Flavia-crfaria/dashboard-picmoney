@@ -220,7 +220,7 @@ st.markdown(f"""
 /* --- Títulos Principais --- */
     h1 {{ /* "Dashboard Interativo - PicMoney" */
         color: #FF0000;
-        font-size: 70px !important; 
+        font-size: 50px !important; 
     }}
     h3 {{ /* "Visão Estratégica (CEO)", "Top 5 Categorias", etc. */
         color: #334155;
@@ -260,7 +260,7 @@ p {{
 
 /* Números grandes dos KPIs (o valor) */
 [data-testid="stMetric"] [data-testid="stMetricValue"] div {{
-    color: #FFFFFF !important; 
+    color: #777777 !important; 
     font-size: 40px !important; 
     font-weight: bold !important;
 }}
@@ -422,7 +422,7 @@ if pagina_selecionada == "Visão Geral (CEO)":
         delta_dau = ((usuarios_ativos_diarios_B - usuarios_ativos_diarios_A) / usuarios_ativos_diarios_A) * 100
         delta_dau_str = f"{delta_dau:,.1f}%"
     else:
-        delta_dau_str = None # Não mostra delta se não houver dados anteriores
+        delta_dau_str = None 
 
     # Delta Sessões por Usuário
     if sessoes_por_usuario_A > 0:
@@ -488,7 +488,7 @@ if pagina_selecionada == "Visão Geral (CEO)":
             
             fig_evolucao = px.line(df_agg, x=x_axis, y='Usuários Ativos', title=f"Usuários Ativos ({agrupamento})")
             fig_evolucao.update_layout(legend_font_size=12)
-            st.plotly_chart(fig_evolucao, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
+            st.plotly_chart(fig_evolucao, use_container_width=True, theme="streamlit") 
             
     with col_g2:
         with st.container(border=True):
@@ -501,10 +501,18 @@ if pagina_selecionada == "Visão Geral (CEO)":
                              title="Categorias com Mais Transações",
                              color_discrete_sequence=cores_vibrantes)
             
-            fig_pie.update_layout(legend_font_size=14)
+            # --- MUDANÇA AQUI: Legenda para baixo (horizontal) ---
+            fig_pie.update_layout(
+                legend_font_size=14,      # Tamanho da fonte da legenda
+                legend_orientation="h",   # 'h' para horizontal
+                legend_yanchor="top",     # Âncora no topo da legenda
+                legend_y=-0.1,            # Posição Y (negativo = abaixo do gráfico)
+                legend_xanchor="center",  # Âncora no centro X
+                legend_x=0.5              # Posição X (centro)
+            )
             # --- CORREÇÃO DE GRÁFICO (textinfo) ---
             fig_pie.update_traces(textposition='inside', textinfo='percent', textfont_size=12)
-            st.plotly_chart(fig_pie, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
+            st.plotly_chart(fig_pie, use_container_width=True, theme="streamlit") 
     
     st.write("---") 
 
@@ -522,7 +530,7 @@ if pagina_selecionada == "Visão Geral (CEO)":
             
             fig_periodo.update_layout(legend_font_size=16)
             
-            st.plotly_chart(fig_periodo, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
+            st.plotly_chart(fig_periodo, use_container_width=True, theme="streamlit")
             
     with col_g4:
         with st.container(border=True):
@@ -534,10 +542,18 @@ if pagina_selecionada == "Visão Geral (CEO)":
                                    hole=0.4, title="Transações por Tipo de Cupom",
                                    color_discrete_sequence=cores_vibrantes_cupom)
             
-            fig_pie_cupom.update_layout(legend_font_size=16)
+            # --- MUDANÇA AQUI: Legenda para baixo (horizontal) ---
+            fig_pie_cupom.update_layout(
+                legend_font_size=16,
+                legend_orientation="h",   # 'h' para horizontal
+                legend_yanchor="top",
+                legend_y=-0.1,            # Posição Y (abaixo do gráfico)
+                legend_xanchor="center",
+                legend_x=0.5
+            )
             # --- CORREÇÃO DE GRÁFICO (textinfo) ---
             fig_pie_cupom.update_traces(textposition='inside', textinfo='percent', textfont_size=12)
-            st.plotly_chart(fig_pie_cupom, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
+            st.plotly_chart(fig_pie_cupom, use_container_width=True, theme="streamlit")
 
     st.write("---") 
 
@@ -553,7 +569,7 @@ if pagina_selecionada == "Visão Geral (CEO)":
         
         fig_hora.update_layout(legend_font_size=16)
         
-        st.plotly_chart(fig_hora, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
+        st.plotly_chart(fig_hora, use_container_width=True, theme="streamlit")
         
 elif pagina_selecionada == "Financeiro (CFO)":
     st.subheader("Visão Financeira (CFO)")
@@ -639,7 +655,7 @@ elif pagina_selecionada == "Financeiro (CFO)":
             
             fig_bar_receita.update_layout(legend_font_size=16)
             
-            st.plotly_chart(fig_bar_receita, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
+            st.plotly_chart(fig_bar_receita, use_container_width=True, theme="streamlit")
     
     with col_g_cfo2:
         # --- (MANTIDO) Gráfico de Barras Colorido ---
@@ -653,7 +669,7 @@ elif pagina_selecionada == "Financeiro (CFO)":
             
             fig_bar_cupom.update_layout(legend_font_size=16)
             
-            st.plotly_chart(fig_bar_cupom, use_container_width=True, theme="streamlit") # <-- CORREÇÃO DE TEMA
+            st.plotly_chart(fig_bar_cupom, use_container_width=True, theme="streamlit")
 
 # --- 8. PÁGINA DE ALERTAS (COM TEMA) ---
 elif pagina_selecionada == "Alertas":
